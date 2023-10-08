@@ -16,8 +16,24 @@ jobs:
             cd ..
       - store_test_results:
           path: test-results
+  build-and-test-gitapis:
+    docker:
+      - image: cimg/python:3.10.2
+    steps:
+      - checkout
+      - run: 
+          command: |   
+            cd hw-02a
+            pip install requests         
+            python -m unittest Test_gitapis
+            cd ..
+      - store_test_results:
+          path: test-results
 
 workflows:
   testing_triangles:
     jobs:
       - build-and-test
+  testgitapis:
+    jobs:
+      - build-and-test-gitapis
